@@ -21,10 +21,10 @@ export default function Hero() {
       {/* Contenido */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="text-left">
-          <h1 className="text-6xl font-bold text-white mb-6">
+          <h1 className="text-6xl font-bold text-white mb-6 animate-fade-in-up font-mono tracking-tight">
             Welcome to Probat Web
           </h1>
-          <p className="text-2xl text-white">
+          <p className="text-2xl text-white animate-fade-in-up animation-delay-200 font-sans">
             Built with Next.js, React 19, and Tailwind CSS v3
           </p>
         </div>
