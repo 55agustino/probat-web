@@ -54,7 +54,7 @@ export default function RevealSection() {
   };
 
   return (
-    <section ref={sectionRef} className="h-[140vh] relative">
+    <section ref={sectionRef} className="h-[120vh] relative">
       <div className="sticky top-0 h-screen overflow-hidden bg-black">
         <div 
           className="w-full h-full bg-cover bg-center transition-all duration-300 relative"
@@ -64,20 +64,20 @@ export default function RevealSection() {
           }}
         >
           {/* Contadores superpuestos */}
-          <div className={`absolute inset-0 flex items-center justify-center gap-40 sm:gap-60 px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`absolute inset-0 flex items-center justify-center gap-8 sm:gap-16 md:gap-40 px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
             <div className="text-center">
-              <div className="text-5xl sm:text-7xl md:text-8xl font-bold text-black drop-shadow-2xl font-mono">
+              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl font-mono">
                 +{counter1}
               </div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
+              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
                 baterías
               </div>
             </div>
             <div className="text-center">
-              <div className="text-5xl sm:text-7xl md:text-8xl font-bold text-black drop-shadow-2xl font-mono">
+              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl font-mono">
                 +{counter2}
               </div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
+              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
                 otrosotros
               </div>
             </div>
