@@ -1,6 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Michroma } from "next/font/google";
+
+const michroma = Michroma({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function RevealSection() {
   const [reveal, setReveal] = useState(50);
@@ -63,21 +69,24 @@ export default function RevealSection() {
             clipPath: `inset(${100 - reveal}% 0 0 0)`
           }}
         >
+          {/* Capa blanca con opacidad para mejorar contraste */}
+          <div className="absolute inset-0 bg-white opacity-20"></div>
+          
           {/* Contadores superpuestos */}
           <div className={`absolute inset-0 flex items-center justify-center gap-8 sm:gap-16 md:gap-40 px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
             <div className="text-center">
-              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl font-mono">
+              <div className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl ${michroma.className}`}>
                 +{counter1}
               </div>
-              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
+              <div className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 ${michroma.className}`}>
                 baterías
               </div>
             </div>
             <div className="text-center">
-              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl font-mono">
+              <div className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl ${michroma.className}`}>
                 +{counter2}
               </div>
-              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 font-mono">
+              <div className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 ${michroma.className}`}>
                 otrosotros
               </div>
             </div>
