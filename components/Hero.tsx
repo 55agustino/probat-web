@@ -25,7 +25,7 @@ export default function Hero() {
             Welcome to Probat Web
           </h1>
           <p className="text-2xl text-white animate-fade-in-up animation-delay-200 font-sans">
-            Built with Next.js, React 19, and Tailwind CSS v3
+            Baterías de Litio. Eslogan va acá
           </p>
         </div>
       </div>
