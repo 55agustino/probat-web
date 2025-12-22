@@ -33,7 +33,7 @@ export default function Hero() {
 
     const interval = setInterval(() => {
       setPulses(prev => {
-        const newPulses = prev.slice(-1); // Mantener solo el último
+        const newPulses = prev.slice(-2); // 2 pulsos sim máx 
         newPulses.push(createPulse());
         return newPulses;
       });
@@ -59,15 +59,15 @@ export default function Hero() {
       ></div>
       
       {/* Pulsos */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none">
         {pulses.map((pulse) => (
           <div
             key={pulse.id}
             className="absolute"
             style={{
               left: pulse.isHorizontal ? `${pulse.x}px` : `${pulse.x}px`,
-              top: pulse.isHorizontal ? `${pulse.y+4}px` : `${pulse.y}px`,
-              width: pulse.isHorizontal ? '0' : '3px',
+              top: pulse.isHorizontal ? `${pulse.y+15}px` : `${pulse.y}px`,
+              width: pulse.isHorizontal ? '0' : '1px',
               height: pulse.isHorizontal ? '1px' : '0',
               background: 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)',
               boxShadow: '0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.7)',
