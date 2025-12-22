@@ -80,7 +80,7 @@ export default function Hero() {
       </div>
       
       {/* Gradiente superpuesto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/0  to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/0 md:via-black/35 to-transparent"></div>
       
       {/* Contenido */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
