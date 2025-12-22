@@ -37,13 +37,13 @@ export default function Hero() {
         newPulses.push(createPulse());
         return newPulses;
       });
-    }, 300);
+    }, 400);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="h-[50vh] flex items-end pb-16 relative bg-black overflow-hidden">
+    <section className="h-[50vh] flex items-end pb-8 md:pb-16 relative bg-black overflow-hidden">
       {/* Cuadrícula CSS */}
       <div 
         className="absolute inset-0"
@@ -80,7 +80,7 @@ export default function Hero() {
       </div>
       
       {/* Gradiente superpuesto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/0  to-transparent"></div>
       
       {/* Contenido */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
