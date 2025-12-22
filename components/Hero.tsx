@@ -37,7 +37,7 @@ export default function Hero() {
         newPulses.push(createPulse());
         return newPulses;
       });
-    }, 1500);
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);
@@ -58,7 +58,7 @@ export default function Hero() {
         }}
       ></div>
       
-      {/* Estelas de energía estilo TRON */}
+      {/* Pulsos */}
       <div className="absolute inset-0 pointer-events-none">
         {pulses.map((pulse) => (
           <div
@@ -66,9 +66,9 @@ export default function Hero() {
             className="absolute"
             style={{
               left: pulse.isHorizontal ? `${pulse.x}px` : `${pulse.x}px`,
-              top: pulse.isHorizontal ? `${pulse.y}px` : `${pulse.y}px`,
+              top: pulse.isHorizontal ? `${pulse.y+4}px` : `${pulse.y}px`,
               width: pulse.isHorizontal ? '0' : '3px',
-              height: pulse.isHorizontal ? '3px' : '0',
+              height: pulse.isHorizontal ? '1px' : '0',
               background: 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)',
               boxShadow: '0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.7)',
               animation: pulse.isHorizontal 
