@@ -10,6 +10,29 @@ const spaceGrotesk = Space_Grotesk({
 
 export default function Hero() {
   const [pulses, setPulses] = useState<Array<{ id: number; x: number; y: number; isHorizontal: boolean; duration: number }>>([]);
+  const [showArrow, setShowArrow] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Buscar la RevealSection en el DOM
+      const revealSection = document.querySelector('[data-reveal-section]');
+      if (revealSection) {
+        const rect = revealSection.getBoundingClientRect();
+        const scrollProgress = 1 - (rect.top / window.innerHeight);
+        
+        // Ocultar la flecha cuando la reveal section esté completamente revelada
+        if (scrollProgress >= 1) {
+          setShowArrow(false);
+        } else if (scrollProgress < 0.1) {
+          setShowArrow(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Ejecutar inmediatamente
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const gridSize = 70;
@@ -43,7 +66,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="h-[50vh] flex items-end pb-8 md:pb-16 relative bg-black overflow-hidden">
+    <section className="h-[65vh] flex items-end pb-8 md:pb-16 relative bg-black overflow-visible">
       {/* Cuadrícula CSS */}
       <div 
         className="absolute inset-0"
@@ -91,7 +114,26 @@ export default function Hero() {
           <p className={`text-2xl md:text-3xl text-white animate-fade-in-up animation-delay-200 ${spaceGrotesk.className}`}>
             Clasificación, segunda vida y fabricación sostenible
           </p>
-        </div>  
+        </div>
+      </div>
+      
+      {/* Flecha indicadora de scroll - fuera del contenedor principal */}
+      <div className={`absolute -bottom-16 md:-bottom-24 left-0 right-0 flex justify-center z-20 transition-opacity duration-300 ${showArrow ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="animate-bounce">
+          <svg 
+            className="w-8 h-8 md:w-10 md:h-10 text-white opacity-80" 
+            fill="none" 
+            strokeWidth="2.5" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </div>
       </div>
     </section>
   );
