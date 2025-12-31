@@ -12,6 +12,7 @@ export default function RevealSection() {
   const [reveal, setReveal] = useState(50);
   const [counter1, setCounter1] = useState(0);
   const [counter2, setCounter2] = useState(0);
+  const [counter3, setCounter3] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [showCounters, setShowCounters] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -31,8 +32,9 @@ export default function RevealSection() {
             setHasAnimated(true);
             setTimeout(() => {
               setShowCounters(true);
-              animateCounter(setCounter1, 1000, 2000);
-              animateCounter(setCounter2, 20, 2000);
+              animateCounter(setCounter1, 100, 2000);
+              animateCounter(setCounter2, 600, 2000);
+              animateCounter(setCounter3, 1000, 2000);
             }, 1000);
           }
         }
@@ -70,24 +72,34 @@ export default function RevealSection() {
           }}
         >
           {/* Capa blanca con opacidad para mejorar contraste */}
-          <div className="absolute inset-0 bg-white opacity-20"></div>
+          <div className="absolute inset-0 bg-black opacity-40"></div>
           
           {/* Contadores superpuestos */}
-          <div className={`absolute inset-0 flex items-center justify-center gap-8 sm:gap-16 md:gap-40 px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="text-center">
-              <div className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl ${michroma.className}`}>
-                +{counter1}
+          <div className={`absolute inset-0 flex items-center justify-center px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 max-w-6xl">
+              <div className="text-center bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+                <div className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
+                  +{counter1}k
+                </div>
+                <div className={`text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                  celdas recertificadas para segunda vida
+                </div>
               </div>
-              <div className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 ${michroma.className}`}>
-                baterías
+              <div className="text-center bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+                <div className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
+                  +{counter2}
+                </div>
+                <div className={`text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                  celdas automotrices recertificadas para segunda vida
+                </div>
               </div>
-            </div>
-            <div className="text-center">
-              <div className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-black drop-shadow-2xl ${michroma.className}`}>
-                +{counter2}
-              </div>
-              <div className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-black mt-2 sm:mt-4 ${michroma.className}`}>
-                otrosotros
+              <div className="text-center md:col-span-2 bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+                <div className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
+                  +{counter3}
+                </div>
+                <div className={`text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                  baterías fabricadas
+                </div>
               </div>
             </div>
           </div>
