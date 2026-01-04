@@ -20,26 +20,35 @@ export default function RevealSection() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (sectionRef.current && !isFullyRevealed) {
+      if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
-        const scrollProgress = 1 - (rect.top / window.innerHeight);
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        const windowHeight = window.innerHeight;
         
-        // Calcular el reveal basado en el scrollProgress
+        // Calcular el progreso del scroll de manera más suave
+        // Comienza a revelarse cuando el top de la sección está en la parte inferior del viewport
+        // Termina de revelarse cuando el top de la sección llega a la parte superior del viewport
+        const scrollStart = windowHeight;
+        const scrollEnd = 0;
+        const scrollRange = scrollStart - scrollEnd;
+        
         let newReveal;
         
-        if (scrollProgress <= 0) {
-          newReveal = 0; // Completamente oculto cuando está por encima del viewport
-        } else if (scrollProgress >= 1) {
-          newReveal = 100; // Completamente visible
-          setIsFullyRevealed(true); // Marcar como completamente revelado
+        if (sectionTop >= scrollStart) {
+          newReveal = 0; // Aún no ha comenzado
+        } else if (sectionTop <= scrollEnd) {
+          newReveal = 100; // Completamente revelado
+          if (!isFullyRevealed) setIsFullyRevealed(true);
         } else {
-          newReveal = scrollProgress * 100; // Transición gradual de 0 a 100
+          // Progreso lineal entre 0 y 100
+          newReveal = ((scrollStart - sectionTop) / scrollRange) * 100;
         }
         
         setReveal(newReveal);
         
         // Iniciar animación de contadores cuando esté más revelado
-        if (scrollProgress > 0.6 && !hasAnimated) {
+        if (newReveal > 60 && !hasAnimated) {
           setHasAnimated(true);
           setTimeout(() => {
             setShowCounters(true);
@@ -51,7 +60,7 @@ export default function RevealSection() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Ejecutar inmediatamente para setear el estado inicial
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasAnimated, isFullyRevealed]);
@@ -73,10 +82,10 @@ export default function RevealSection() {
   };
 
   return (
-    <section ref={sectionRef} className="h-[120vh] relative" data-reveal-section>
-      <div className="sticky top-0 h-screen overflow-hidden bg-black">
+    <section ref={sectionRef} className={`${isFullyRevealed ? 'h-screen' : 'h-[120vh]'} relative`} data-reveal-section>
+      <div className={`${isFullyRevealed ? 'relative' : 'sticky'} top-0 h-screen overflow-hidden bg-black`}>
         <div 
-          className="w-full h-full bg-cover bg-center transition-all duration-300 relative"
+          className="w-full h-full bg-cover bg-center relative will-change-[clip-path]"
           style={{
             backgroundImage: "url(/camioneta.jpg)",
             clipPath: `inset(${100 - reveal}% 0 0 0)`

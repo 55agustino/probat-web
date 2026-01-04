@@ -18,18 +18,24 @@ export default function Hero() {
       const revealSection = document.querySelector('[data-reveal-section]');
       if (revealSection) {
         const rect = revealSection.getBoundingClientRect();
-        const scrollProgress = 1 - (rect.top / window.innerHeight);
+        const windowHeight = window.innerHeight;
+        const sectionTop = rect.top;
         
-        // Ocultar la flecha cuando la reveal section esté completamente revelada
-        if (scrollProgress >= 1) {
-          setShowArrow(false);
-        } else if (scrollProgress < 0.1) {
+        // Mostrar flecha cuando estamos antes del reveal o después de que esté completamente revelado
+        if (sectionTop > windowHeight * 0.8) {
+          // Estamos antes del reveal
           setShowArrow(true);
+        } else if (sectionTop <= 0) {
+          // El reveal está completamente revelado
+          setShowArrow(true);
+        } else {
+          // Estamos en medio del reveal
+          setShowArrow(false);
         }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Ejecutar inmediatamente
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
