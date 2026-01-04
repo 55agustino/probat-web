@@ -85,13 +85,12 @@ export default function Hero() {
             linear-gradient(to bottom, rgba(59, 130, 246, 0.4) 1px, transparent 1px)
           `,
           backgroundSize: '70px 70px',
-          backgroundPosition: '0 15px',
-          backgroundAttachment: 'fixed'
+          backgroundPosition: '0 15px'
         }}
       ></div>
       
       {/* Pulsos */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {pulses.map((pulse) => (
           <div
             key={pulse.id}

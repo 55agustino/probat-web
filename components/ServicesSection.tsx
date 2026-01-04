@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
 
 const spaceGrotesk = Space_Grotesk({
@@ -8,6 +9,39 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export default function ServicesSection() {
+  const [pulses, setPulses] = useState<Array<{ id: number; x: number; y: number; isHorizontal: boolean; duration: number }>>([]);
+
+  useEffect(() => {
+    const gridSize = 70;
+    const createPulse = () => {
+      const maxCols = Math.floor(window.innerWidth / gridSize);
+      const maxRows = Math.floor(window.innerHeight / gridSize);
+      
+      const isHorizontal = Math.random() > 0.5;
+      
+      return {
+        id: Date.now() + Math.random(),
+        x: Math.floor(Math.random() * maxCols) * gridSize,
+        y: Math.floor(Math.random() * maxRows) * gridSize,
+        isHorizontal,
+        duration: 1.5 + Math.random() * 1
+      };
+    };
+
+    // Crear 2 pulsos iniciales
+    setPulses([createPulse(), createPulse()]);
+
+    const interval = setInterval(() => {
+      setPulses(prev => {
+        const newPulses = prev.slice(-2); // 2 pulsos simultáneos máx 
+        newPulses.push(createPulse());
+        return newPulses;
+      });
+    }, 400);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const services = [
     {
       title: "Clasificación",
@@ -44,8 +78,29 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="min-h-screen bg-black py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen bg-black py-20 relative overflow-hidden">
+      {/* Pulsos */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {pulses.map((pulse) => (
+          <div
+            key={pulse.id}
+            className="absolute"
+            style={{
+              left: pulse.isHorizontal ? `${pulse.x}px` : `${pulse.x}px`,
+              top: pulse.isHorizontal ? `${pulse.y}px` : `${pulse.y}px`,
+              width: pulse.isHorizontal ? '0' : '1px',
+              height: pulse.isHorizontal ? '1px' : '0',
+              background: 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)',
+              boxShadow: '0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.7)',
+              animation: pulse.isHorizontal 
+                ? `tron-trail-horizontal ${pulse.duration}s ease-out forwards`
+                : `tron-trail-vertical ${pulse.duration}s ease-out forwards`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <h2 className={`text-4xl md:text-5xl font-bold text-white mb-16 text-center ${spaceGrotesk.className}`}>
           Servicios que ofrecemos:
         </h2>
