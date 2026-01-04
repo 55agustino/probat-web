@@ -82,7 +82,7 @@ export default function RevealSection() {
   };
 
   return (
-    <section ref={sectionRef} className={`${isFullyRevealed ? 'h-screen' : 'h-[120vh]'} relative`} data-reveal-section>
+    <section ref={sectionRef} className={`${isFullyRevealed ? 'h-screen' : 'h-[150vh]'} relative`} data-reveal-section>
       <div className={`${isFullyRevealed ? 'relative' : 'sticky'} top-0 h-screen overflow-hidden bg-black`}>
         <div 
           className="w-full h-full bg-cover bg-center relative will-change-[clip-path]"

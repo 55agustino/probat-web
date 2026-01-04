@@ -22,16 +22,19 @@ export default function Hero() {
         const sectionTop = rect.top;
         
         // Mostrar flecha cuando estamos antes del reveal o después de que esté completamente revelado
-        if (sectionTop > windowHeight * 0.8) {
-          // Estamos antes del reveal
+        if (sectionTop > windowHeight * 0.5) {
+          // Estamos antes del reveal - todavía no hemos llegado
           setShowArrow(true);
         } else if (sectionTop <= 0) {
-          // El reveal está completamente revelado
+          // El reveal está completamente revelado y fijo
           setShowArrow(true);
         } else {
-          // Estamos en medio del reveal
+          // Estamos en medio del reveal (entre 0.5vh y 0)
           setShowArrow(false);
         }
+      } else {
+        // Si no encuentra la sección, mostrar la flecha por defecto
+        setShowArrow(true);
       }
     };
 
