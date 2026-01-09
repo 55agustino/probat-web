@@ -63,7 +63,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="min-h-screen bg-black py-20 relative overflow-hidden">
+    <section id="contacto" className="min-h-screen bg-black py-20 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 text-center ${spaceGrotesk.className}`}>
           Contacto

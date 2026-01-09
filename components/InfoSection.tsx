@@ -1,6 +1,6 @@
 export default function InfoSection() {
   return (
-    <section className="bg-white py-32">
+    <section id="nosotros" className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="text-4xl font-bold text-gray-900 mb-8">

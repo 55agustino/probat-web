@@ -75,7 +75,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="h-[65vh] flex items-end pb-8 md:pb-16 relative bg-black overflow-visible">
+    <section id="inicio" className="h-[65vh] flex items-end pb-8 md:pb-16 relative bg-black overflow-visible">
       {/* Cuadrícula CSS */}
       <div 
         className="absolute inset-0"
