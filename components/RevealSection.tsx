@@ -66,17 +66,23 @@ export default function RevealSection() {
   }, [hasAnimated, isFullyRevealed]);
 
   const animateCounter = (setter: (value: number) => void, target: number, duration: number) => {
-    const start = 0;
-    const increment = target / (duration / 16);
-    let current = start;
+    const startTime = Date.now();
+
+    const easeOutCubic = (t: number) => {
+      return 1 - Math.pow(1 - t, 3);
+    };
 
     const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+      const current = Math.floor(easedProgress * target);
+
+      if (progress >= 1) {
         setter(target);
         clearInterval(timer);
       } else {
-        setter(Math.floor(current));
+        setter(current);
       }
     }, 16);
   };
