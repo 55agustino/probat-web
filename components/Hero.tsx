@@ -120,7 +120,7 @@ export default function Hero() {
             Especialistas en baterías de litio
           </h1>
           <p className={`text-2xl md:text-3xl text-white animate-fade-in-up animation-delay-200 ${spaceGrotesk.className}`}>
-            Clasificación, segunda vida y fabricación sostenible
+            Creamos soluciones personalizadas con tecnología sostenible
           </p>
         </div>
       </div>
