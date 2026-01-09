@@ -46,22 +46,22 @@ export default function ServicesSection() {
     {
       title: "CLASIFICACIÓN",
       description: "Las baterías son desensambladas para extraer scrap de aluminio y cobre, así como las celdas de litio, que serán sometidas a un proceso de recertificación.",
-      image: "/clasificacion.png"
+      image: "/CLASIFICACION.png"
     },
     {
       title: "RECERTIFICACIÓN",
       description: "La recertificación se hace con cargadores específicos para cada tipo de celda, mediante pruebas de carga y descarga, lo que permite clasificar y reutilizar cada celda.",
-      image: "/recertificacion.png"
+      image: "/RECERTIFICACION.png"
     },
     {
       title: "SEGUNDA VIDA",
       description: "Revalorización de celdas que han llegado al final de su vida útil, convirtiendolas en nueva materia prima pronta para su comercialización y reutilización.",
-      image: "/segunda-vida.png"
+      image: "/SEGUNDAVIDA.png"
     },
     {
       title: "FABRICACIÓN",
       description: "Con las celdas recertificadas se fabrican baterías para bicicletas, motos y citycars; así como baterias para sistemas de acumuladores solares/eólicos.",
-      image: "/fabricacion.png"
+      image: "/FABRICACION.webp"
     }
   ];
 
@@ -103,28 +103,17 @@ export default function ServicesSection() {
             >
               {/* Imagen */}
               <div className="w-full lg:w-1/2">
-                <div className="relative aspect-video bg-white/5 backdrop-blur-sm border border-blue-500/30 rounded-lg overflow-hidden hover:border-blue-500/50 transition-all duration-300">
-                  <div className="absolute inset-0 flex items-center justify-center text-white/40">
-                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  {/* Aquí irá la imagen cuando se especifique */}
-                  {/* <img src={service.image} alt={service.title} className="w-full h-full object-cover" /> */}
+                <div className="relative aspect-video bg-white/5 backdrop-blur-sm border border-blue-500/30 rounded-lg overflow-hidden hover:border-blue-500/50 transition-all duration-300 p-6">
+                  <img src={service.image} alt={service.title} className="w-full h-full object-contain" />
                 </div>
               </div>
 
               {/* Contenido */}
               <div className="w-full lg:w-1/2">
                 <div className="bg-white/5 backdrop-blur-sm border border-blue-500/30 rounded-lg p-8 hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className={`text-5xl font-bold text-blue-400 ${spaceGrotesk.className}`}>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <h3 className={`text-3xl md:text-4xl font-bold text-white ${spaceGrotesk.className}`}>
-                      {service.title}
-                    </h3>
-                  </div>
+                  <h3 className={`text-3xl md:text-4xl font-bold text-white mb-4 ${spaceGrotesk.className}`}>
+                    {service.title}
+                  </h3>
                   <p className="text-lg text-white/80 leading-relaxed">
                     {service.description}
                   </p>
