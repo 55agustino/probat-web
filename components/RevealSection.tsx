@@ -52,9 +52,9 @@ export default function RevealSection() {
           setHasAnimated(true);
           setTimeout(() => {
             setShowCounters(true);
-            animateCounter(setCounter1, 100, 3500);
-            animateCounter(setCounter2, 600, 3500);
-            animateCounter(setCounter3, 1000, 3500);
+            animateCounter(setCounter1, 100, 2000);
+            animateCounter(setCounter2, 600, 2000);
+            animateCounter(setCounter3, 1000, 2000);
           }, 500);
         }
       }
