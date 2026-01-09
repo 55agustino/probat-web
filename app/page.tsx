@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import RevealSection from "@/components/RevealSection";
 import InfoSection from "@/components/InfoSection";
 import ServicesSection from "@/components/ServicesSection";
+import ContactSection from "@/components/ContactSection";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <RevealSection />
       <InfoSection />
       <ServicesSection />
+      <ContactSection />
     </div>
   );
 }
