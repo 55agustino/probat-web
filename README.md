@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PROBAT - Sitio Web Corporativo
 
-## Getting Started
+Sitio web de PROBAT, empresa especializada en baterías de litio con servicios de clasificación, recertificación, segunda vida y fabricación personalizada.
 
-First, run the development server:
+## 🚀 Tecnologías
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 15** - Framework React con App Router
+- **TypeScript** - Tipado estático
+- **Tailwind CSS** - Estilos utility-first
+- **Space Grotesk** - Tipografía personalizada
+
+## 📋 Estructura del Proyecto
+
+```
+probat-web/
+├── app/
+│   ├── globals.css          # Estilos globales y animaciones
+│   ├── layout.tsx            # Layout principal
+│   └── page.tsx              # Página principal
+├── components/
+│   ├── Hero.tsx              # Sección hero con grid animado
+│   ├── Navbar.tsx            # Barra de navegación fija
+│   ├── RevealSection.tsx     # Sección de revelado con scroll
+│   ├── InfoSection.tsx       # Información sobre PROBAT
+│   ├── ServicesSection.tsx   # Servicios con imágenes
+│   ├── ContactSection.tsx    # Formulario de contacto
+│   └── WhatsAppButton.tsx    # Botón flotante de WhatsApp
+└── public/
+    ├── CLASIFICACION.png     # Imagen servicio clasificación
+    ├── RECERTIFICACION.png   # Imagen servicio recertificación
+    ├── SEGUNDAVIDA.png       # Imagen servicio segunda vida
+    └── FABRICACION.webp      # Imagen servicio fabricación
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Características
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Secciones Principales
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Hero Section**
+   - Grid animado tipo TRON con pulsos
+   - Título y subtítulo personalizables
+   - Indicador de scroll animado
 
-## Learn More
+2. **Reveal Section**
+   - Animación de revelado al hacer scroll
+   - Texto informativo sobre PROBAT
 
-To learn more about Next.js, take a look at the following resources:
+3. **Info Section**
+   - Información detallada de la empresa
+   - Diseño limpio y legible
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Services Section**
+   - 4 servicios con imágenes y descripciones
+   - Grid animado con pulsos TRON
+   - Layout alternado (imagen izq/der)
+   - Servicios: Clasificación, Recertificación, Segunda Vida, Fabricación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **Contact Section**
+   - Formulario de contacto funcional
+   - Integración con Web3Forms
+   - Validación de campos
+   - Mensajes de éxito/error
 
-## Deploy on Vercel
+### Componentes Adicionales
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Navbar**: Navegación fija con logo y enlaces
+- **WhatsApp Button**: Botón flotante para contacto directo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Instalación y Desarrollo
+
+```bash
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
+npm run dev
+
+# Compilar para producción
+npm run build
+
+# Iniciar servidor de producción
+npm start
+```
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+## 📧 Configuración del Formulario de Contacto
+
+El formulario usa **Web3Forms** (gratis):
+
+1. Regístrate en [web3forms.com](https://web3forms.com)
+2. Obtén tu Access Key
+3. Reemplaza en `components/ContactSection.tsx`:
+   ```typescript
+   access_key: "TU_ACCESS_KEY_AQUI"
+   ```
+
+## 🎨 Personalización
+
+### Colores
+Los colores principales están definidos en `tailwind.config.js` y usan el esquema azul (`blue-500`, `blue-400`).
+
+### Animaciones
+Las animaciones personalizadas están en `app/globals.css`:
+- `tron-trail-horizontal/vertical` - Pulsos animados
+- `fade-in-up` - Entrada de elementos
+- `bounce` - Indicador de scroll
+
+### Tipografía
+Se usa **Space Grotesk** de Google Fonts para títulos y elementos destacados.
+
+## 📱 Responsive
+
+El sitio está completamente optimizado para:
+- Desktop (1024px+)
+- Tablet (768px - 1023px)
+- Mobile (< 768px)
+
+## 🚀 Deployment
+
+### Vercel (Recomendado)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+El proyecto está optimizado para Vercel. Solo conecta tu repositorio.
+
+## 📄 Licencia
+
+Proyecto privado de PROBAT.
