@@ -100,7 +100,9 @@ export default function Hero() {
               top: pulse.isHorizontal ? `${pulse.y+15}px` : `${pulse.y}px`,
               width: pulse.isHorizontal ? '0' : '1px',
               height: pulse.isHorizontal ? '1px' : '0',
-              background: 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)',
+              background: pulse.isHorizontal 
+                ? 'linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)'
+                : 'linear-gradient(180deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 1) 50%, rgba(59, 130, 246, 0) 100%)',
               boxShadow: '0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.7)',
               animation: pulse.isHorizontal 
                 ? `tron-trail-horizontal ${pulse.duration}s ease-out forwards`
