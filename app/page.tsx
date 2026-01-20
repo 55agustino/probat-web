@@ -12,6 +12,10 @@ const ServicesSection = dynamic(() => import("@/components/ServicesSection"), {
   loading: () => <div className="min-h-screen bg-black" />,
 });
 
+const ExamplesSection = dynamic(() => import("@/components/ExamplesSection"), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
+
 const ContactSection = dynamic(() => import("@/components/ContactSection"), {
   loading: () => <div className="min-h-screen bg-black" />,
 });
@@ -33,6 +37,7 @@ export default function Home() {
       <RevealSection />
       <InfoSection />
       <ServicesSection />
+      <ExamplesSection />
       <ContactSection />
       <WhatsAppButton />
     </div>
