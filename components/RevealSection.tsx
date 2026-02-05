@@ -107,7 +107,7 @@ export default function RevealSection() {
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter1}k
                 </div>
-                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 uppercase ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
                   celdas recertificadas para segunda vida
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function RevealSection() {
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter2}
                 </div>
-                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 uppercase ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
                   celdas automotrices recertificadas para segunda vida
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function RevealSection() {
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter3}
                 </div>
-                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
+                <div className={`text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white mt-2 sm:mt-4 uppercase ${michroma.className}`} style={{textShadow: '0 2px 8px rgba(0,0,0,0.8)'}}>
                   baterías fabricadas
                 </div>
               </div>
