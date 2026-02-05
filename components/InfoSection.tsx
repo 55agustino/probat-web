@@ -1,12 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Space_Grotesk } from "next/font/google";
+
+const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 
 export default function InfoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const [isTextVisible, setIsTextVisible] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const videoObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && videoRef.current) {
@@ -16,72 +26,150 @@ export default function InfoSection() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     if (videoRef.current) {
-      observer.observe(videoRef.current);
+      videoObserver.observe(videoRef.current);
     }
 
     return () => {
-      observer.disconnect();
+      videoObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fadeInObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === textRef.current) {
+              setIsTextVisible(true);
+            } else if (entry.target === videoContainerRef.current) {
+              setIsVideoVisible(true);
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (textRef.current) {
+      fadeInObserver.observe(textRef.current);
+    }
+    if (videoContainerRef.current) {
+      fadeInObserver.observe(videoContainerRef.current);
+    }
+
+    return () => {
+      fadeInObserver.disconnect();
     };
   }, []);
 
   return (
-    <section id="nosotros" className="bg-white py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Texto */}
-          <div className="flex-1 max-w-3xl">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">
-              Sobre PROBAT
+    <section id="nosotros" className="min-h-screen bg-black pt-24 lg:pt-32 pb-12 relative overflow-visible flex items-center">
+      {/* Cuadrícula de fondo sutil */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(59, 130, 246, 0.2) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
+          `,
+          backgroundSize: '70px 70px',
+        }}
+      />
+
+      {/* Gradiente de transición hacia la siguiente sección */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-black/50 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Texto con animación fade-in y reveal */}
+          <div
+            ref={textRef}
+            className={`flex-1 w-full transition-all duration-1000 relative ${
+              isTextVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            {/* Línea de reveal azul que barre de izquierda a derecha */}
+            <div
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.8)] transition-all duration-1500 ${
+                isTextVisible ? 'opacity-0' : 'opacity-100'
+              }`}
+              style={{
+                animation: isTextVisible ? 'reveal-sweep 1.5s ease-out forwards' : 'none'
+              }}
+            />
+
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 ${spaceGrotesk.className}`}>
+              Sobre <span className="text-blue-400">PROBAT</span>
             </h2>
-            <p className="text-2xl text-gray-700 leading-relaxed">
-              PROBAT es una empresa innovadora especializada en la clasificación,
-              recertificación y fabricación de baterías de litio, enfocada en dar
-              una segunda vida a aquellas que han llegado al final de su ciclo útil.
-              Sus procesos transforman lo que sería un "desecho" en valiosa materia
-              prima.
-            </p>
+            <div className="space-y-6">
+              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+                PROBAT es una empresa <span className="text-blue-400 font-semibold">innovadora</span> especializada en la clasificación,
+                recertificación y fabricación de baterías de litio.
+              </p>
+              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+                Enfocada en dar una <span className="text-blue-400 font-semibold">segunda vida</span> a aquellas que han llegado al final de su ciclo útil.
+              </p>
+              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+                Transformamos lo que sería un <span className="text-blue-400 font-semibold">"desecho"</span> en valiosa materia prima.
+              </p>
+            </div>
           </div>
 
-          {/* Animación de batería */}
-          <div className="flex-1 flex justify-center lg:justify-end">
-            <div className="w-full max-w-md relative">
+          {/* Video con animación fade-in y hover */}
+          <div
+            ref={videoContainerRef}
+            className={`flex-1 w-full flex justify-center lg:justify-end transition-all duration-1000 delay-300 ${
+              isVideoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="w-full max-w-xl relative group">
               {/* Placeholder mientras no hay video */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <p className="text-gray-600 font-semibold">*Animación Batería girando*</p>
-                  <p className="text-gray-400 text-sm mt-2">
-                    Video transformación <br/>
-                    (animacion.webm / animacion.mp4)
-                  </p>
-                </div>
+                <p className="text-white/40">*animación batería*</p>
               </div>
 
+              {/* Video con soporte para transparencia */}
               <video
                 ref={videoRef}
-                className="w-full h-auto relative z-10"
+                className="w-full h-auto relative z-10 transition-transform duration-500 group-hover:scale-105"
                 loop
                 muted
                 playsInline
                 preload="auto"
                 onLoadedData={(e) => {
-                  // Ocultar placeholder cuando el video carga
                   const placeholder = e.currentTarget.previousElementSibling;
                   if (placeholder) {
                     (placeholder as HTMLElement).style.display = 'none';
                   }
                 }}
               >
+                {/* WebM con VP9 soporta canal alpha (transparencia) */}
                 <source src="/animacion.webm" type="video/webm" />
+                {/* Fallback para navegadores que no soporten WebM */}
                 <source src="/animacion.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Estilos para la animación de reveal */}
+      <style jsx>{`
+        @keyframes reveal-sweep {
+          0% {
+            left: 0;
+            opacity: 1;
+          }
+          100% {
+            left: 100%;
+            opacity: 0;
+          }
+        }
+      `}</style>
     </section>
   );
 }

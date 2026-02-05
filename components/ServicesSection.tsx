@@ -66,7 +66,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="servicios" className="min-h-screen bg-black py-20 relative overflow-hidden">
+    <section id="servicios" className="min-h-screen bg-black pt-8 pb-20 relative overflow-hidden">
       {/* Pulsos */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {pulses.map((pulse) => (
