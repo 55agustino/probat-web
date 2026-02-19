@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Space_Grotesk } from "next/font/google";
+import Image from "next/image";
 
 const spaceGrotesk = Space_Grotesk({
   weight: ["400", "700"],
@@ -121,11 +122,15 @@ export default function ExamplesSection() {
                 className="absolute inset-0 rounded-lg opacity-10"
                 style={{ backgroundColor: example.batteryColor }}
               />
-              <img
-                src={example.batteryImage}
-                alt={example.batteryType}
-                className="w-full h-auto object-contain relative z-10"
-              />
+              <div className="relative w-full aspect-square z-10">
+                <Image
+                  src={example.batteryImage}
+                  alt={example.batteryType}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                />
+              </div>
               <div
                 className={`${spaceGrotesk.className} text-center mt-4 font-bold relative z-10`}
                 style={{ color: example.batteryColor }}

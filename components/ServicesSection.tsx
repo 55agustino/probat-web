@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
+import Image from "next/image";
 
 const spaceGrotesk = Space_Grotesk({
   weight: ["400", "700"],
@@ -46,17 +47,17 @@ export default function ServicesSection() {
     {
       title: "CLASIFICACIÓN",
       description: "Las baterías son desensambladas para extraer scrap de aluminio y cobre, así como las celdas de litio, que serán sometidas a un proceso de recertificación.",
-      image: "/CLASIFICACION.png"
+      image: "/CLASIFICACION.webp"
     },
     {
       title: "RECERTIFICACIÓN",
       description: "La recertificación se hace con cargadores específicos para cada tipo de celda, mediante pruebas de carga y descarga, lo que permite clasificar y reutilizar cada celda.",
-      image: "/RECERTIFICACION.png"
+      image: "/RECERTIFICACION.webp"
     },
     {
       title: "SEGUNDA VIDA",
       description: "Revalorización de celdas que han llegado al final de su vida útil, convirtiendolas en nueva materia prima pronta para su comercialización y reutilización.",
-      image: "/SEGUNDAVIDA.png"
+      image: "/SEGUNDAVIDA.webp"
     },
     {
       title: "FABRICACIÓN",
@@ -104,7 +105,13 @@ export default function ServicesSection() {
               {/* Imagen */}
               <div className="w-full lg:w-1/2">
                 <div className="relative aspect-video bg-white/5 backdrop-blur-sm border border-blue-500/30 rounded-lg overflow-hidden hover:border-blue-500/50 transition-all duration-300 p-6">
-                  <img src={service.image} alt={service.title} className="w-full h-full object-contain" />
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-contain p-6"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
               </div>
 

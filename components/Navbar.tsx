@@ -43,7 +43,7 @@ export default function Navbar() {
           <div className="relative flex-shrink-0">
             <Image
               key={gifKey}
-              src={`/gifff.gif?v=${gifKey}`}
+              src={`/gifff.webp?v=${gifKey}`}
               alt="Logo"
               width={120}
               height={40}
