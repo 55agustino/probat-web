@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import RevealSection from "@/components/RevealSection";
 import InfoSection from "@/components/InfoSection";
+import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
@@ -39,6 +40,7 @@ export default function Home() {
       <ServicesSection />
       <ExamplesSection />
       <ContactSection />
+      <Footer />
       <WhatsAppButton />
     </div>
   );
