@@ -1,20 +1,18 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+const spaceGrotesk = Space_Grotesk({ weight: ["400", "700"], subsets: ["latin"] });
 
 interface Example {
   batteryType: string;
   batteryColor: string;
-  batteryImage: string;
+  batteryImage: string | null;
   title: string;
-  videoUrl: string;
+  imageUrl: string;
+  imagePosition?: string;
   description: string;
 }
 
@@ -22,63 +20,83 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA BICI ELÉCTRICA",
     batteryColor: "#3b82f6",
-    batteryImage: "/bateria-azul.png",
+    batteryImage: null,
     title: "Bicicletas Eléctricas",
-    videoUrl: "/videos/bici-electrica.mp4",
+    imageUrl: "/def/bici.webp",
+    imagePosition: "center 20%",
     description: "Potencia y autonomía para movilidad urbana sostenible",
   },
   {
     batteryType: "BATERÍA KAYAK",
     batteryColor: "#10b981",
-    batteryImage: "/bateria-verde.png",
+    batteryImage: null,
     title: "Kayak Eléctrico",
-    videoUrl: "/videos/kayak.mp4",
+    imageUrl: "/def/kayak.webp",
+    imagePosition: "center 20%",
     description: "Energía eficiente para deportes acuáticos",
   },
   {
     batteryType: "BATERÍA CITYQUAD",
     batteryColor: "#6b7280",
-    batteryImage: "/bateria-gris.png",
-    title: "Cityquad / Citycar / Paneles Solares",
-    videoUrl: "/videos/cityquad.mp4",
-    description: "Soluciones versátiles para vehículos urbanos y energía solar",
+    batteryImage: null,
+    title: "Cityquad / Citycar",
+    imageUrl: "/def/cityquad.webp",
+    description: "Soluciones versátiles para vehículos urbanos eléctricos",
+  },
+  {
+    batteryType: "BATERÍA PANELES SOLARES",
+    batteryColor: "#f59e0b",
+    batteryImage: null,
+    title: "Paneles Solares",
+    imageUrl: "/def/paneles.webp",
+    description: "Almacenamiento de energía solar para instalaciones domésticas e industriales",
   },
 ];
 
+const AUTO_DELAY = 4000;
+
+function getOffset(index: number, current: number, total: number): number {
+  const diff = (index - current + total) % total;
+  return diff > total / 2 ? diff - total : diff;
+}
+
+function getCardStyle(offset: number): React.CSSProperties {
+  const transition =
+    "transform 550ms cubic-bezier(0.4,0,0.2,1), opacity 500ms ease, filter 500ms ease";
+
+  if (offset === 0)
+    return { transform: "translateX(-50%) scale(1)", opacity: 1, zIndex: 10, filter: "brightness(1)", transition };
+
+  if (offset === -1)
+    return { transform: "translateX(-143%) scale(0.84)", opacity: 1, zIndex: 5, filter: "brightness(0.32)", cursor: "pointer", transition };
+
+  if (offset === 1)
+    return { transform: "translateX(43%) scale(0.84)", opacity: 1, zIndex: 5, filter: "brightness(0.32)", cursor: "pointer", transition };
+
+  const far = offset < 0 ? "-220%" : "120%";
+  return { transform: `translateX(${far}) scale(0.7)`, opacity: 0, zIndex: 0, pointerEvents: "none", transition };
+}
+
 export default function ExamplesSection() {
   const [current, setCurrent] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [paused, setPaused] = useState(false);
 
-  const goTo = useCallback((index: number) => {
-    const prev = videoRefs.current[current];
-    if (prev) {
-      prev.pause();
-      prev.currentTime = 0;
-    }
-    setCurrent(index);
-  }, [current]);
-
-  const goPrev = useCallback(() => {
-    goTo((current - 1 + examples.length) % examples.length);
-  }, [current, goTo]);
-
-  const goNext = useCallback(() => {
-    goTo((current + 1) % examples.length);
-  }, [current, goTo]);
+  const goNext = useCallback(() => setCurrent((c) => (c + 1) % examples.length), []);
+  const goPrev = useCallback(() => setCurrent((c) => (c - 1 + examples.length) % examples.length), []);
+  const goTo = useCallback((i: number) => setCurrent(i), []);
 
   useEffect(() => {
-    const video = videoRefs.current[current];
-    if (video) {
-      video.play().catch(() => {});
-    }
-  }, [current]);
+    if (paused) return;
+    const id = setInterval(goNext, AUTO_DELAY);
+    return () => clearInterval(id);
+  }, [paused, goNext]);
 
   const example = examples[current];
 
   return (
     <section
       id="ejemplos"
-      className="relative min-h-screen bg-black text-white pt-32 pb-20 overflow-hidden"
+      className="relative bg-black text-white pt-24 pb-16 overflow-hidden"
     >
       {/* Línea separadora superior */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
@@ -96,135 +114,151 @@ export default function ExamplesSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Título */}
-        <div className="text-center mb-16">
-          <h2
-            className={`${spaceGrotesk.className} text-4xl sm:text-5xl lg:text-6xl font-bold mb-4`}
-          >
+        <div className="text-center mb-12">
+          <h2 className={`${spaceGrotesk.className} text-4xl sm:text-5xl lg:text-6xl font-bold mb-4`}>
             EJEMPLOS DE <span className="text-blue-400">USO</span>
           </h2>
-          <p
-            className={`${spaceGrotesk.className} text-gray-400 text-lg max-w-2xl mx-auto`}
-          >
-            Nuestras baterías en acción: soluciones energéticas para diferentes
-            aplicaciones
+          <p className={`${spaceGrotesk.className} text-gray-400 text-lg max-w-2xl mx-auto`}>
+            Nuestras baterías en acción: soluciones energéticas para diferentes aplicaciones
           </p>
         </div>
 
-        {/* Slider */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-          {/* Batería */}
-          <div className="w-full lg:w-1/3">
-            <div
-              className="relative aspect-square border-4 rounded-lg p-8 flex flex-col items-center justify-center transition-all duration-500"
-              style={{ borderColor: example.batteryColor }}
-            >
+        {/* Carousel */}
+        <div
+          className="relative h-72 sm:h-80 lg:h-96"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {examples.map((ex, index) => {
+            const offset = getOffset(index, current, examples.length);
+            return (
               <div
-                className="absolute inset-0 rounded-lg opacity-10"
-                style={{ backgroundColor: example.batteryColor }}
-              />
-              <div className="relative w-full aspect-square z-10">
-                <Image
-                  src={example.batteryImage}
-                  alt={example.batteryType}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                />
-              </div>
-              <div
-                className={`${spaceGrotesk.className} text-center mt-4 font-bold relative z-10`}
-                style={{ color: example.batteryColor }}
+                key={ex.imageUrl}
+                className="absolute top-0 bottom-0 left-1/2 w-[80%]"
+                style={getCardStyle(offset)}
+                onClick={() => {
+                  if (offset === -1) goPrev();
+                  if (offset === 1) goNext();
+                }}
               >
-                {example.batteryType}
-              </div>
-            </div>
-          </div>
+                {/* Two-panel card */}
+                <div className="h-full flex gap-3 sm:gap-4">
 
-          {/* Video y descripción */}
-          <div className="w-full lg:w-2/3">
-            <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl overflow-hidden transition-colors duration-300">
-              {/* Video — renderizamos todos pero ocultamos los que no son el actual */}
-              <div className="relative aspect-video bg-black">
-                {examples.map((ex, index) => (
-                  <video
-                    key={ex.videoUrl}
-                    ref={(el) => {
-                      videoRefs.current[index] = el;
-                    }}
-                    className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-500 ${
-                      index === current ? "opacity-100" : "opacity-0 pointer-events-none"
-                    }`}
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
+                  {/* Panel izquierdo — batería */}
+                  <div
+                    className="w-[30%] shrink-0 rounded-xl flex flex-col items-center justify-center border-2 relative overflow-hidden"
+                    style={{ borderColor: ex.batteryColor }}
                   >
-                    <source src={ex.videoUrl} type="video/mp4" />
-                  </video>
-                ))}
-                <div
-                  className="absolute inset-0 pointer-events-none border-2 transition-colors duration-500"
-                  style={{ borderColor: example.batteryColor, opacity: 0.3 }}
-                />
-              </div>
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundColor: ex.batteryColor }} />
+                    {ex.batteryImage ? (
+                      <div className="relative w-full flex-1 min-h-0">
+                        <Image
+                          src={ex.batteryImage}
+                          alt={ex.batteryType}
+                          fill
+                          className="object-cover"
+                          sizes="25vw"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex-1 min-h-0" />
+                    )}
+                    <span
+                      className={`${spaceGrotesk.className} relative z-10 text-[9px] sm:text-[10px] font-bold tracking-widest text-center leading-tight px-2 py-2`}
+                      style={{ color: ex.batteryColor }}
+                    >
+                      {ex.batteryType}
+                    </span>
+                  </div>
 
-              {/* Descripción */}
-              <div className="p-6">
-                <h3
-                  className={`${spaceGrotesk.className} text-2xl font-bold mb-3 transition-colors duration-300`}
-                  style={{ color: example.batteryColor }}
-                >
-                  {example.title}
-                </h3>
-                <p className={`${spaceGrotesk.className} text-gray-300`}>
-                  {example.description}
-                </p>
+                  {/* Panel derecho — imagen de uso */}
+                  <div className="flex-1 min-w-0 flex flex-col rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950">
+                    {/* Color bar */}
+                    <div className="h-[3px] shrink-0" style={{ backgroundColor: ex.batteryColor }} />
+
+                    {/* Image */}
+                    <div className="relative flex-1 min-h-0">
+                      <Image
+                        src={ex.imageUrl}
+                        alt={ex.title}
+                        fill
+                        className="object-cover"
+                        style={{ objectPosition: ex.imagePosition ?? "center" }}
+                        sizes="(max-width: 640px) 65vw, (max-width: 1024px) 55vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+                    </div>
+
+                    {/* Info bar */}
+                    <div className="shrink-0 bg-zinc-900/90 backdrop-blur-sm px-3 sm:px-4 py-2.5">
+                      <h3 className={`${spaceGrotesk.className} font-bold text-white text-sm sm:text-base leading-snug`}>
+                        {ex.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
-        {/* Controles del slider */}
-        <div className="flex items-center justify-center gap-8 mt-12">
-          {/* Flecha anterior */}
+        {/* Description (current card) */}
+        <div className="text-center mt-6 h-10 flex items-center justify-center">
+          <p
+            key={current}
+            className={`${spaceGrotesk.className} text-gray-400 text-sm sm:text-base`}
+            style={{ animation: "exFadeIn 0.45s ease both" }}
+          >
+            {example.description}
+          </p>
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center justify-center gap-6 mt-5">
           <button
             onClick={goPrev}
-            className="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center text-white hover:border-white transition-colors duration-200"
+            className="w-9 h-9 rounded-full border border-zinc-700 flex items-center justify-center text-white hover:border-white transition-colors duration-200"
             aria-label="Anterior"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
 
-          {/* Dots */}
-          <div className="flex gap-3">
+          <div className="flex gap-2.5">
             {examples.map((ex, index) => (
               <button
                 key={index}
                 onClick={() => goTo(index)}
-                className="w-3 h-3 rounded-full transition-all duration-300"
+                className="w-2 h-2 rounded-full transition-all duration-300"
                 style={{
                   backgroundColor: index === current ? ex.batteryColor : "#52525b",
-                  transform: index === current ? "scale(1.3)" : "scale(1)",
+                  transform: index === current ? "scale(1.4)" : "scale(1)",
                 }}
                 aria-label={`Ir al ejemplo ${index + 1}`}
               />
             ))}
           </div>
 
-          {/* Flecha siguiente */}
           <button
             onClick={goNext}
-            className="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center text-white hover:border-white transition-colors duration-200"
+            className="w-9 h-9 rounded-full border border-zinc-700 flex items-center justify-center text-white hover:border-white transition-colors duration-200"
             aria-label="Siguiente"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
         </div>
       </div>
+
+      <style>{`
+        @keyframes exFadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0);   }
+        }
+      `}</style>
     </section>
   );
 }
