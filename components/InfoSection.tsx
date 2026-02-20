@@ -92,16 +92,6 @@ export default function InfoSection() {
               isTextVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            {/* Línea de reveal azul que barre de izquierda a derecha */}
-            <div
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.8)] transition-all duration-1500 ${
-                isTextVisible ? 'opacity-0' : 'opacity-100'
-              }`}
-              style={{
-                animation: isTextVisible ? 'reveal-sweep 1.5s ease-out forwards' : 'none'
-              }}
-            />
-
             <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 ${spaceGrotesk.className}`}>
               Sobre <span className="text-blue-400">PROBAT</span>
             </h2>
@@ -157,19 +147,6 @@ export default function InfoSection() {
         </div>
       </div>
 
-      {/* Estilos para la animación de reveal */}
-      <style jsx>{`
-        @keyframes reveal-sweep {
-          0% {
-            left: 0;
-            opacity: 1;
-          }
-          100% {
-            left: 100%;
-            opacity: 0;
-          }
-        }
-      `}</style>
     </section>
   );
 }

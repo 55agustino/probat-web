@@ -103,7 +103,7 @@ export default function RevealSection() {
           {/* Contadores superpuestos */}
           <div className={`absolute inset-0 flex items-center justify-center px-4 transition-opacity duration-1000 ${showCounters ? 'opacity-100' : 'opacity-0'}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 max-w-6xl">
-              <div className="text-center bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+              <div className="text-center bg-black/50 p-6 md:p-8 rounded-2xl border border-white/20">
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter1}k
                 </div>
@@ -111,7 +111,7 @@ export default function RevealSection() {
                   celdas recertificadas para segunda vida
                 </div>
               </div>
-              <div className="text-center bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+              <div className="text-center bg-black/50 p-6 md:p-8 rounded-2xl border border-white/20">
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter2}
                 </div>
@@ -119,7 +119,7 @@ export default function RevealSection() {
                   celdas automotrices recertificadas para segunda vida
                 </div>
               </div>
-              <div className="text-center md:col-span-2 bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20">
+              <div className="text-center md:col-span-2 bg-black/50 p-6 md:p-8 rounded-2xl border border-white/20">
                 <div className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white ${michroma.className}`} style={{textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6)'}}>
                   +{counter3}
                 </div>

@@ -63,80 +63,72 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contacto" className="min-h-screen bg-black py-20 relative overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 text-center ${spaceGrotesk.className}`}>
+    <section id="contacto" className="bg-black py-16 relative overflow-hidden">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 className={`text-3xl md:text-4xl font-bold text-white mb-2 text-center ${spaceGrotesk.className}`}>
           Contacto
         </h2>
-        <p className="text-xl text-white/70 text-center mb-12">
+        <p className="text-base text-white/60 text-center mb-8">
           ¿Tienes un proyecto en mente? Cuéntanos tus necesidades
         </p>
 
-        <div className="bg-white/5 backdrop-blur-sm border border-blue-500/30 rounded-lg p-8 hover:bg-white/10 transition-all duration-300">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Nombre */}
-            <div>
-              <label htmlFor="name" className="block text-white text-lg mb-2">
-                Nombre
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 bg-black/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
-                placeholder="Tu nombre"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-white text-lg mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 bg-black/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
-                placeholder="tu@email.com"
-              />
+        <div className="bg-white/5 border border-blue-500/30 rounded-xl p-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Nombre + Email en fila */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-white/80 text-sm mb-1">Nombre</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 bg-black/50 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="Tu nombre"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-white/80 text-sm mb-1">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 bg-black/50 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="tu@email.com"
+                />
+              </div>
             </div>
 
             {/* Teléfono */}
             <div>
-              <label htmlFor="phone" className="block text-white text-lg mb-2">
-                Teléfono
-              </label>
+              <label htmlFor="phone" className="block text-white/80 text-sm mb-1">Teléfono</label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-black/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full px-3 py-2 bg-black/50 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
                 placeholder="+ Número de teléfono"
               />
             </div>
 
             {/* Mensaje */}
             <div>
-              <label htmlFor="message" className="block text-white text-lg mb-2">
-                Mensaje
-              </label>
+              <label htmlFor="message" className="block text-white/80 text-sm mb-1">Mensaje</label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
-                rows={6}
-                className="w-full px-4 py-3 bg-black/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                rows={4}
+                className="w-full px-3 py-2 bg-black/50 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
                 placeholder="Cuéntanos sobre tu proyecto..."
               />
             </div>
@@ -145,7 +137,7 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed ${spaceGrotesk.className}`}
+              className={`w-full py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed text-sm ${spaceGrotesk.className}`}
             >
               {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
             </button>
