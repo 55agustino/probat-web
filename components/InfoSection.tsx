@@ -77,6 +77,7 @@ export default function InfoSection() {
             linear-gradient(to bottom, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
           `,
           backgroundSize: '70px 70px',
+          backgroundPosition: 'center center',
         }}
       />
 
