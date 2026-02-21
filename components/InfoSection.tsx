@@ -93,18 +93,18 @@ export default function InfoSection() {
               isTextVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 ${spaceGrotesk.className}`}>
+            <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 ${spaceGrotesk.className}`}>
               Sobre <span className="text-blue-400">PROBAT</span>
             </h2>
-            <div className="space-y-6">
-              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+            <div className="space-y-4">
+              <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
                 PROBAT es una empresa <span className="text-blue-400 font-semibold">innovadora</span> especializada en la clasificación,
                 recertificación y fabricación de baterías de litio.
               </p>
-              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+              <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
                 Enfocada en dar una <span className="text-blue-400 font-semibold">segunda vida</span> a aquellas que han llegado al final de su ciclo útil.
               </p>
-              <p className={`text-xl md:text-2xl text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+              <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
                 Transformamos lo que sería un <span className="text-blue-400 font-semibold">"desecho"</span> en valiosa materia prima.
               </p>
             </div>
