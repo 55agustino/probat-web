@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 
@@ -60,15 +60,23 @@ const examples: Example[] = [
 ];
 
 const AUTO_DELAY = 4000;
+const TRANSITION_MS = 550;
+const N = examples.length;
 
-function getOffset(index: number, current: number, total: number): number {
-  const diff = (index - current + total) % total;
-  return diff > total / 2 ? diff - total : diff;
+function getOffset(index: number, current: number): number {
+  const diff = (index - current + N) % N;
+  return diff > N / 2 ? diff - N : diff;
 }
 
-function getCardStyle(offset: number): React.CSSProperties {
-  const transition =
-    "transform 550ms cubic-bezier(0.4,0,0.2,1), opacity 500ms ease, filter 500ms ease";
+// farSide: which side the invisible "staging" card is parked on when not visible
+function getCardStyle(
+  offset: number,
+  farSide: "left" | "right",
+  noTransition: boolean
+): React.CSSProperties {
+  const transition = noTransition
+    ? "none"
+    : "transform 550ms cubic-bezier(0.4,0,0.2,1), opacity 500ms ease, filter 500ms ease";
 
   if (offset === 0)
     return { transform: "translateX(-50%) scale(1)", opacity: 1, zIndex: 10, filter: "brightness(1)", transition };
@@ -79,7 +87,8 @@ function getCardStyle(offset: number): React.CSSProperties {
   if (offset === 1)
     return { transform: "translateX(43%) scale(0.84)", opacity: 1, zIndex: 5, filter: "brightness(0.32)", cursor: "pointer", transition };
 
-  const far = offset < 0 ? "-220%" : "120%";
+  // Invisible staging card — parked offscreen on whichever side we set
+  const far = farSide === "left" ? "-220%" : "120%";
   return { transform: `translateX(${far}) scale(0.7)`, opacity: 0, zIndex: 0, pointerEvents: "none", transition };
 }
 
@@ -87,9 +96,105 @@ export default function ExamplesSection() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const goNext = useCallback(() => setCurrent((c) => (c + 1) % examples.length), []);
-  const goPrev = useCallback(() => setCurrent((c) => (c - 1 + examples.length) % examples.length), []);
-  const goTo = useCallback((i: number) => setCurrent(i), []);
+  // Per-card: which side the invisible card is parked on. All start on the right.
+  const [farSides, setFarSides] = useState<("left" | "right")[]>(() =>
+    Array(N).fill("right")
+  );
+  // Per-card: temporarily disable CSS transition for an instant snap (no visual movement)
+  const [noTrans, setNoTrans] = useState<boolean[]>(() => Array(N).fill(false));
+
+  // Prevent overlapping animations
+  const lockRef = useRef(false);
+
+  /**
+   * Core navigation logic — achieves true infinite loop:
+   *
+   * With 4 items there is exactly 1 invisible "staging" slot. The trick:
+   * before each animation, we instantly (no transition) reposition the staging
+   * card to the correct entry side. Then we fire the animation. This way the
+   * visible cards always enter from the expected side AND exit to the expected side.
+   *
+   *  going next  →  incoming enters from RIGHT,  outgoing exits LEFT
+   *  going prev  →  incoming enters from LEFT,   outgoing exits RIGHT
+   */
+  const navigate = useCallback(
+    (dir: 1 | -1, targetIdx?: number) => {
+      if (lockRef.current) return;
+      lockRef.current = true;
+
+      const next =
+        targetIdx !== undefined
+          ? targetIdx
+          : (current + dir + N) % N;
+
+      if (next === current) {
+        lockRef.current = false;
+        return;
+      }
+
+      // With N=4 the staging card is always at offset=2 from current
+      const stagingIdx = (current + 2) % N;
+      const entrySide: "left" | "right" = dir > 0 ? "right" : "left";
+
+      // The visible card that will leave the visible area
+      const exitingIdx =
+        dir > 0
+          ? (current - 1 + N) % N  // left-preview card exits when going next
+          : (current + 1) % N;      // right-preview card exits when going prev
+      const exitSide: "left" | "right" = dir > 0 ? "left" : "right";
+
+      // ── Step 1: instantly snap the staging card to the correct entry side ──
+      // noTransition=true so this repositioning has no visible animation.
+      setNoTrans(() => {
+        const u = Array(N).fill(false) as boolean[];
+        u[stagingIdx] = true;
+        return u;
+      });
+      setFarSides((prev) => {
+        const u = [...prev] as ("left" | "right")[];
+        u[stagingIdx] = entrySide;
+        return u;
+      });
+
+      // ── Step 2: one rAF later, play the actual slide animation ──
+      // By this point the snap has been painted; re-enabling transitions lets
+      // the cards animate smoothly from their current positions to the next ones.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setNoTrans(Array(N).fill(false));
+          setFarSides((prev) => {
+            const u = [...prev] as ("left" | "right")[];
+            u[exitingIdx] = exitSide;
+            return u;
+          });
+          setCurrent(next);
+
+          setTimeout(() => {
+            lockRef.current = false;
+          }, TRANSITION_MS + 50);
+        });
+      });
+    },
+    [current]
+  );
+
+  const goNext = useCallback(() => navigate(1), [navigate]);
+  const goPrev = useCallback(() => navigate(-1), [navigate]);
+
+  // Dot navigation: instant jump without slide animation to avoid multi-step weirdness
+  const goTo = useCallback(
+    (i: number) => {
+      if (i === current || lockRef.current) return;
+      lockRef.current = true;
+      setNoTrans(Array(N).fill(true));
+      setCurrent(i);
+      setTimeout(() => {
+        setNoTrans(Array(N).fill(false));
+        lockRef.current = false;
+      }, 50);
+    },
+    [current]
+  );
 
   useEffect(() => {
     if (paused) return;
@@ -136,12 +241,12 @@ export default function ExamplesSection() {
           onMouseLeave={() => setPaused(false)}
         >
           {examples.map((ex, index) => {
-            const offset = getOffset(index, current, examples.length);
+            const offset = getOffset(index, current);
             return (
               <div
                 key={ex.imageUrl}
                 className="absolute top-0 bottom-0 left-1/2 w-[80%]"
-                style={getCardStyle(offset)}
+                style={getCardStyle(offset, farSides[index], noTrans[index])}
                 onClick={() => {
                   if (offset === -1) goPrev();
                   if (offset === 1) goNext();
