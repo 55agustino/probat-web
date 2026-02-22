@@ -10,6 +10,7 @@ interface Example {
   batteryType: string;
   batteryColor: string;
   batteryImage: string | null;
+  batteryImageScale?: number;
   title: string;
   imageUrl: string;
   imagePosition?: string;
@@ -20,7 +21,8 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA BICI ELÉCTRICA",
     batteryColor: "#3b82f6",
-    batteryImage: null,
+    batteryImage: "/def/bateriasazul.webp",
+    batteryImageScale: 0.8,
     title: "Bicicletas Eléctricas",
     imageUrl: "/def/bici.webp",
     imagePosition: "center 20%",
@@ -29,7 +31,8 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA KAYAK",
     batteryColor: "#10b981",
-    batteryImage: null,
+    batteryImage: "/def/kayakbat.webp",
+    batteryImageScale: 0.6,
     title: "Kayak Eléctrico",
     imageUrl: "/def/kayak.webp",
     imagePosition: "center 20%",
@@ -38,7 +41,7 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA CITYQUAD",
     batteryColor: "#6b7280",
-    batteryImage: null,
+    batteryImage: "/def/citycarbat.webp",
     title: "Cityquad / Citycar",
     imageUrl: "/def/cityquad.webp",
     description: "Soluciones versátiles para vehículos urbanos eléctricos",
@@ -46,7 +49,8 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA PANELES SOLARES",
     batteryColor: "#f59e0b",
-    batteryImage: null,
+    batteryImage: "/def/panelsolarbat.webp",
+    batteryImageScale: 0.85,
     title: "Paneles Solares",
     imageUrl: "/def/paneles.webp",
     description: "Almacenamiento de energía solar para instalaciones domésticas e industriales",
@@ -118,7 +122,7 @@ export default function ExamplesSection() {
           <h2 className={`${spaceGrotesk.className} text-3xl md:text-4xl lg:text-5xl font-bold mb-4`}>
             Ejemplos de <span className="text-blue-400">uso</span>
           </h2>
-          <p className={`${spaceGrotesk.className} text-gray-400 text-lg max-w-2xl mx-auto`}>
+          <p className={`${spaceGrotesk.className} text-gray-400 text-lg whitespace-nowrap`}>
             Nuestras baterías en acción: soluciones energéticas para diferentes aplicaciones
           </p>
         </div>
@@ -151,13 +155,14 @@ export default function ExamplesSection() {
                   >
                     <div className="absolute inset-0 opacity-10" style={{ backgroundColor: ex.batteryColor }} />
                     {ex.batteryImage ? (
-                      <div className="relative w-full flex-1 min-h-0">
+                      <div className="relative w-full flex-1 min-h-0 p-3">
                         <Image
                           src={ex.batteryImage}
                           alt={ex.batteryType}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="25vw"
+                          style={{ transform: `scale(${ex.batteryImageScale ?? 1})` }}
                         />
                       </div>
                     ) : (

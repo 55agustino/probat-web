@@ -22,12 +22,12 @@ export default function ServicesSection() {
     {
       title: "SEGUNDA VIDA",
       description: "Revalorización de celdas que han llegado al final de su vida útil, convirtiendolas en nueva materia prima pronta para su comercialización y reutilización.",
-      image: "/SEGUNDAVIDA.webp"
+      image: "/def/segundavida.jpeg"
     },
     {
       title: "FABRICACIÓN",
       description: "Con las celdas recertificadas se fabrican baterías para bicicletas, motos y citycars; así como baterias para sistemas de acumuladores solares/eólicos.",
-      image: "/FABRICACION.webp"
+      image: "/def/fabricacion.jpeg"
     }
   ];
 
@@ -35,7 +35,7 @@ export default function ServicesSection() {
     <section id="servicios" className="bg-black pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-center ${spaceGrotesk.className}`}>
-          Nuestros <span className="text-blue-400">servicios</span>
+          Nuestros <span className="text-blue-400">Servicios</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

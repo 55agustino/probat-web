@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Space_Grotesk } from "next/font/google";
 
@@ -44,7 +43,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="relative flex-shrink-0 w-[120px] h-[40px]">
+          <div className="relative flex-shrink-0">
+            {/* GIF: en flujo normal, define el tamaño del contenedor */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={gifRef}
@@ -52,19 +52,20 @@ export default function Navbar() {
               alt="Logo"
               width={120}
               height={40}
-              className={`object-contain absolute inset-0 transition-opacity duration-300 ${
+              className={`block object-contain transition-opacity duration-300 ${
                 showGif ? "opacity-100" : "opacity-0"
               }`}
             />
-            <Image
+            {/* Estático: overlay absoluto en la misma posición */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/logow.webp"
               alt="Logo"
               width={120}
               height={40}
-              className={`object-contain transition-opacity duration-300 ${
+              className={`block object-contain absolute inset-0 transition-opacity duration-300 ${
                 showGif ? "opacity-0" : "opacity-100"
               }`}
-              priority
             />
           </div>
 

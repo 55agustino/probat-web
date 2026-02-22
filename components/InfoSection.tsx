@@ -9,34 +9,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export default function InfoSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
-
-  useEffect(() => {
-    const videoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && videoRef.current) {
-            videoRef.current.play();
-          } else if (videoRef.current) {
-            videoRef.current.pause();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (videoRef.current) {
-      videoObserver.observe(videoRef.current);
-    }
-
-    return () => {
-      videoObserver.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     const fadeInObserver = new IntersectionObserver(
@@ -98,50 +74,31 @@ export default function InfoSection() {
             </h2>
             <div className="space-y-4">
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
-                PROBAT es una empresa especializada en la <span className="text-white font-bold">clasificación, recertificación y fabricación</span> de baterías de litio.
+                PROBAT es una empresa especializada en la <span className="text-blue-400 font-bold">clasificación, recertificación y fabricación</span> de baterías de litio.
               </p>
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
-                Nos enfocamos en dar una <span className="text-white font-bold">segunda vida</span> a aquellas baterías que han llegado al final de su ciclo útil, mediante <span className="text-white font-bold">procesos técnicos seguros y controlados</span>.
+                Nos enfocamos en dar una <span className="text-blue-400 font-bold">segunda vida</span> a aquellas baterías que han llegado al final de su ciclo útil, mediante <span className="text-blue-400 font-bold">procesos técnicos seguros y controlados</span>.
               </p>
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
-                Transformamos baterías fuera de uso en <span className="text-white font-bold">materia prima valiosa</span>, recuperando componentes que pueden reintegrarse al sistema productivo.
+                Transformamos baterías fuera de uso en <span className="text-blue-400 font-bold">materia prima valiosa</span>, recuperando componentes que pueden reintegrarse al sistema productivo.
               </p>
             </div>
           </div>
 
-          {/* Video con animación fade-in y hover */}
+          {/* Animación con fade-in y hover */}
           <div
             ref={videoContainerRef}
-            className={`flex-1 w-full flex justify-center lg:justify-end transition-all duration-1000 delay-300 ${
+            className={`flex-1 w-full flex justify-center lg:justify-center transition-all duration-1000 delay-300 ${
               isVideoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <div className="w-full max-w-xl relative group">
-              {/* Placeholder mientras no hay video */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white/40">*animación batería*</p>
-              </div>
-
-              {/* Video con soporte para transparencia */}
-              <video
-                ref={videoRef}
+            <div className="w-full max-w-[440px] relative group">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/def/animacion.webp"
+                alt="Animación batería PROBAT"
                 className="w-full h-auto relative z-10 transition-transform duration-500 group-hover:scale-105"
-                loop
-                muted
-                playsInline
-                preload="auto"
-                onLoadedData={(e) => {
-                  const placeholder = e.currentTarget.previousElementSibling;
-                  if (placeholder) {
-                    (placeholder as HTMLElement).style.display = 'none';
-                  }
-                }}
-              >
-                {/* WebM con VP9 soporta canal alpha (transparencia) */}
-                <source src="/animacion.webm" type="video/webm" />
-                {/* Fallback para navegadores que no soporten WebM */}
-                <source src="/animacion.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
           </div>
         </div>
