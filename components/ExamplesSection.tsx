@@ -115,8 +115,8 @@ export default function ExamplesSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Título */}
         <div className="text-center mb-12">
-          <h2 className={`${spaceGrotesk.className} text-4xl sm:text-5xl lg:text-6xl font-bold mb-4`}>
-            EJEMPLOS DE <span className="text-blue-400">USO</span>
+          <h2 className={`${spaceGrotesk.className} text-3xl md:text-4xl lg:text-5xl font-bold mb-4`}>
+            Ejemplos de <span className="text-blue-400">uso</span>
           </h2>
           <p className={`${spaceGrotesk.className} text-gray-400 text-lg max-w-2xl mx-auto`}>
             Nuestras baterías en acción: soluciones energéticas para diferentes aplicaciones
