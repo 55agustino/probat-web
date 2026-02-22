@@ -14,6 +14,7 @@ interface Example {
   title: string;
   imageUrl: string;
   imagePosition?: string;
+  imageTransform?: string;
   description: string;
 }
 
@@ -35,7 +36,8 @@ const examples: Example[] = [
     batteryImageScale: 0.6,
     title: "Kayak Eléctrico",
     imageUrl: "/def/kayak.webp",
-    imagePosition: "center 20%",
+    imagePosition: "center 0%",
+    imageTransform: "scale(1.2) translateY(calc(-10% + 60px))",
     description: "Energía eficiente para deportes acuáticos",
   },
   {
@@ -182,13 +184,13 @@ export default function ExamplesSection() {
                     <div className="h-[3px] shrink-0" style={{ backgroundColor: ex.batteryColor }} />
 
                     {/* Image */}
-                    <div className="relative flex-1 min-h-0">
+                    <div className="relative flex-1 min-h-0 overflow-hidden">
                       <Image
                         src={ex.imageUrl}
                         alt={ex.title}
                         fill
                         className="object-cover"
-                        style={{ objectPosition: ex.imagePosition ?? "center" }}
+                        style={{ objectPosition: ex.imagePosition ?? "center", transform: ex.imageTransform }}
                         sizes="(max-width: 640px) 65vw, (max-width: 1024px) 55vw, 50vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />

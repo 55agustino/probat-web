@@ -23,8 +23,7 @@ export default function RevealSection() {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
         const sectionTop = rect.top;
-        const sectionHeight = rect.height;
-        const windowHeight = window.innerHeight;
+const windowHeight = window.innerHeight;
         
         // Calcular el progreso del scroll de manera más suave
         // Comienza a revelarse cuando el top de la sección está en la parte inferior del viewport
@@ -93,7 +92,7 @@ export default function RevealSection() {
         <div 
           className="w-full h-full bg-cover bg-center relative will-change-[clip-path]"
           style={{
-            backgroundImage: "url(/camioneta.jpg)",
+            backgroundImage: "url(/def/revealsection.webp)",
             clipPath: `inset(${100 - reveal}% 0 0 0)`
           }}
         >

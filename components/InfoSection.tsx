@@ -95,7 +95,7 @@ export default function InfoSection() {
             <div className="w-full max-w-[440px] relative group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/def/animacion.webp"
+                src="/def/animacion2.webp"
                 alt="Animación batería PROBAT"
                 className="w-full h-auto relative z-10 transition-transform duration-500 group-hover:scale-105"
               />
