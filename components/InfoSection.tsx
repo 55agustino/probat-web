@@ -74,10 +74,10 @@ export default function InfoSection() {
             </h2>
             <div className="space-y-4">
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
-                PROBAT es una empresa especializada en la <span className="text-blue-400 font-bold">clasificación, recertificación y fabricación</span> de baterías de litio.
+                PROBAT es una empresa especializada en la <span className="text-blue-400 font-bold">clasificación</span>, <span className="text-blue-400 font-bold">recertificación</span> y <span className="text-blue-400 font-bold">fabricación</span> de baterías de litio.
               </p>
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
-                Nos enfocamos en dar una <span className="text-blue-400 font-bold">segunda vida</span> a aquellas baterías que han llegado al final de su ciclo útil, mediante <span className="text-blue-400 font-bold">procesos técnicos seguros y controlados</span>.
+                Nos enfocamos en dar una <span className="text-blue-400 font-bold">segunda vida</span> a aquellas baterías que han llegado al final de su ciclo útil, mediante procesos técnicos seguros y controlados.
               </p>
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
                 Transformamos baterías fuera de uso en <span className="text-blue-400 font-bold">materia prima valiosa</span>, recuperando componentes que pueden reintegrarse al sistema productivo.
