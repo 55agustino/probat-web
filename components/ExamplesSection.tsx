@@ -11,6 +11,7 @@ interface Example {
   batteryColor: string;
   batteryImage: string | null;
   batteryImageScale?: number;
+  batteryImageTransform?: string;
   title: string;
   imageUrl: string;
   imagePosition?: string;
@@ -22,8 +23,8 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA BICI ELÉCTRICA",
     batteryColor: "#3b82f6",
-    batteryImage: "/def/bateriasazul.webp",
-    batteryImageScale: 0.8,
+    batteryImage: "/def/bicibat.webp",
+    batteryImageTransform: "translateX(12%) scale(0.8)",
     title: "Bicicletas Eléctricas",
     imageUrl: "/def/bici.webp",
     imagePosition: "center 20%",
@@ -106,17 +107,6 @@ export default function ExamplesSection() {
   // Prevent overlapping animations
   const lockRef = useRef(false);
 
-  /**
-   * Core navigation logic — achieves true infinite loop:
-   *
-   * With 4 items there is exactly 1 invisible "staging" slot. The trick:
-   * before each animation, we instantly (no transition) reposition the staging
-   * card to the correct entry side. Then we fire the animation. This way the
-   * visible cards always enter from the expected side AND exit to the expected side.
-   *
-   *  going next  →  incoming enters from RIGHT,  outgoing exits LEFT
-   *  going prev  →  incoming enters from LEFT,   outgoing exits RIGHT
-   */
   const navigate = useCallback(
     (dir: 1 | -1, targetIdx?: number) => {
       if (lockRef.current) return;
@@ -132,19 +122,15 @@ export default function ExamplesSection() {
         return;
       }
 
-      // With N=4 the staging card is always at offset=2 from current
       const stagingIdx = (current + 2) % N;
       const entrySide: "left" | "right" = dir > 0 ? "right" : "left";
 
-      // The visible card that will leave the visible area
       const exitingIdx =
         dir > 0
-          ? (current - 1 + N) % N  // left-preview card exits when going next
-          : (current + 1) % N;      // right-preview card exits when going prev
+          ? (current - 1 + N) % N
+          : (current + 1) % N;
       const exitSide: "left" | "right" = dir > 0 ? "left" : "right";
 
-      // ── Step 1: instantly snap the staging card to the correct entry side ──
-      // noTransition=true so this repositioning has no visible animation.
       setNoTrans(() => {
         const u = Array(N).fill(false) as boolean[];
         u[stagingIdx] = true;
@@ -156,9 +142,6 @@ export default function ExamplesSection() {
         return u;
       });
 
-      // ── Step 2: one rAF later, play the actual slide animation ──
-      // By this point the snap has been painted; re-enabling transitions lets
-      // the cards animate smoothly from their current positions to the next ones.
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setNoTrans(Array(N).fill(false));
@@ -181,7 +164,6 @@ export default function ExamplesSection() {
   const goNext = useCallback(() => navigate(1), [navigate]);
   const goPrev = useCallback(() => navigate(-1), [navigate]);
 
-  // Dot navigation: instant jump without slide animation to avoid multi-step weirdness
   const goTo = useCallback(
     (i: number) => {
       if (i === current || lockRef.current) return;
@@ -269,7 +251,9 @@ export default function ExamplesSection() {
                           fill
                           className="object-contain"
                           sizes="25vw"
-                          style={{ transform: `scale(${ex.batteryImageScale ?? 1})` }}
+                          style={{
+                            transform: ex.batteryImageTransform ?? `scale(${ex.batteryImageScale ?? 1})`,
+                          }}
                         />
                       </div>
                     ) : (
