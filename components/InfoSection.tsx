@@ -80,6 +80,9 @@ export default function InfoSection() {
                 Nos enfocamos en dar una <span className="text-blue-400 font-bold">segunda vida</span> a aquellas baterías que han llegado al final de su ciclo útil, mediante procesos técnicos seguros y controlados.
               </p>
               <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
+                Fabricamos y reacondicionamos baterías de litio para aplicaciones de <span className="text-blue-400 font-bold">movilidad eléctrica</span>, abarcando la mayoría de las soluciones disponibles en el mercado. Asimismo, realizamos la conversión de sistemas de baterías de gel ácido a litio, optimizando rendimiento, eficiencia y durabilidad.
+              </p>
+              <p className={`text-base md:text-lg text-white/90 leading-relaxed ${spaceGrotesk.className}`}>
                 Transformamos baterías fuera de uso en <span className="text-blue-400 font-bold">materia prima valiosa</span>, recuperando componentes que pueden reintegrarse al sistema productivo.
               </p>
             </div>
