@@ -37,8 +37,7 @@ const examples: Example[] = [
     batteryImageScale: 0.6,
     title: "Kayak Eléctrico",
     imageUrl: "/def/kayak.webp",
-    imagePosition: "center 0%",
-    imageTransform: "scale(1.2) translateY(calc(-10% + 60px))",
+    imagePosition: "center 25%",
     description: "Energía eficiente para deportes acuáticos",
   },
   {
@@ -73,7 +72,8 @@ function getOffset(index: number, current: number): number {
 function getCardStyle(
   offset: number,
   farSide: "left" | "right",
-  noTransition: boolean
+  noTransition: boolean,
+  mobile: boolean
 ): React.CSSProperties {
   const transition = noTransition
     ? "none"
@@ -82,11 +82,15 @@ function getCardStyle(
   if (offset === 0)
     return { transform: "translateX(-50%) scale(1)", opacity: 1, zIndex: 10, filter: "brightness(1)", transition };
 
-  if (offset === -1)
+  if (offset === -1) {
+    if (mobile) return { transform: "translateX(-150%) scale(0.84)", opacity: 0, zIndex: 5, pointerEvents: "none", transition };
     return { transform: "translateX(-143%) scale(0.84)", opacity: 1, zIndex: 5, filter: "brightness(0.32)", cursor: "pointer", transition };
+  }
 
-  if (offset === 1)
+  if (offset === 1) {
+    if (mobile) return { transform: "translateX(50%) scale(0.84)", opacity: 0, zIndex: 5, pointerEvents: "none", transition };
     return { transform: "translateX(43%) scale(0.84)", opacity: 1, zIndex: 5, filter: "brightness(0.32)", cursor: "pointer", transition };
+  }
 
   // Invisible staging card — parked offscreen on whichever side we set
   const far = farSide === "left" ? "-220%" : "120%";
@@ -96,6 +100,15 @@ function getCardStyle(
 export default function ExamplesSection() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   // Per-card: which side the invisible card is parked on. All start on the right.
   const [farSides, setFarSides] = useState<("left" | "right")[]>(() =>
@@ -218,7 +231,7 @@ export default function ExamplesSection() {
 
         {/* Carousel */}
         <div
-          className="relative h-72 sm:h-80 lg:h-96"
+          className="relative h-80 sm:h-80 lg:h-96"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -227,8 +240,8 @@ export default function ExamplesSection() {
             return (
               <div
                 key={ex.imageUrl}
-                className="absolute top-0 bottom-0 left-1/2 w-[80%]"
-                style={getCardStyle(offset, farSides[index], noTrans[index])}
+                className="absolute top-0 bottom-0 left-1/2 w-full sm:w-[80%]"
+                style={getCardStyle(offset, farSides[index], noTrans[index], isMobile)}
                 onClick={() => {
                   if (offset === -1) goPrev();
                   if (offset === 1) goNext();
