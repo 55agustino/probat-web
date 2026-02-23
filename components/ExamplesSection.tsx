@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-
-const spaceGrotesk = Space_Grotesk({ weight: ["400", "700"], subsets: ["latin"] });
+import { spaceGrotesk } from "@/lib/fonts";
 
 interface Example {
   batteryType: string;
@@ -104,6 +102,7 @@ export default function ExamplesSection() {
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 639px)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobile(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener("change", handler);

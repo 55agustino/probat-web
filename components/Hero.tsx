@@ -1,12 +1,7 @@
 "use client";
 
-import { Space_Grotesk } from "next/font/google";
 import { useEffect, useState } from "react";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { spaceGrotesk } from "@/lib/fonts";
 
 export default function Hero() {
   const [pulses, setPulses] = useState<Array<{ id: number; x: number; y: number; isHorizontal: boolean; duration: number }>>([]);
@@ -61,6 +56,7 @@ export default function Hero() {
     };
 
     // Crear 2 pulsos iniciales
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPulses([createPulse(), createPulse()]);
 
     const interval = setInterval(() => {

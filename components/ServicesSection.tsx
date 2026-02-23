@@ -1,10 +1,5 @@
-import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { spaceGrotesk } from "@/lib/fonts";
 
 export default function ServicesSection() {
 
@@ -91,7 +86,7 @@ export function InfoSection() {
             PROBAT es una empresa innovadora especializada en la clasificación, 
             recertificación y fabricación de baterías de litio, enfocada en dar 
             una segunda vida a aquellas que han llegado al final de su ciclo útil. 
-            Sus procesos transforman lo que sería un "desecho" en valiosa materia prima.
+            Sus procesos transforman lo que sería un &ldquo;desecho&rdquo; en valiosa materia prima.
           </p>
         </div>
       </div>

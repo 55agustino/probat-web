@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Michroma } from "next/font/google";
-
-const michroma = Michroma({
-  weight: "400",
-  subsets: ["latin"],
-});
+import { michroma } from "@/lib/fonts";
 
 export default function RevealSection() {
   const [reveal, setReveal] = useState(0);
@@ -17,6 +12,24 @@ export default function RevealSection() {
   const [showCounters, setShowCounters] = useState(false);
   const [isFullyRevealed, setIsFullyRevealed] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const animateCounter = (setter: (value: number) => void, target: number, duration: number) => {
+    const startTime = Date.now();
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(easeOutCubic(progress) * target);
+
+      if (progress >= 1) {
+        setter(target);
+        clearInterval(timer);
+      } else {
+        setter(current);
+      }
+    }, 16);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,24 +71,6 @@ export default function RevealSection() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasAnimated, isFullyRevealed]);
-
-  const animateCounter = (setter: (value: number) => void, target: number, duration: number) => {
-    const startTime = Date.now();
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.floor(easeOutCubic(progress) * target);
-
-      if (progress >= 1) {
-        setter(target);
-        clearInterval(timer);
-      } else {
-        setter(current);
-      }
-    }, 16);
-  };
 
   // Cada recuadro gestiona su propia opacidad — el backdrop-blur siempre está
   // computado pero invisible, así la transición es genuinamente gradual.

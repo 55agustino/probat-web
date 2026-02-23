@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Space_Grotesk } from "next/font/google";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { spaceGrotesk } from "@/lib/fonts";
 
 export default function InfoSection() {
   const textRef = useRef<HTMLDivElement>(null);

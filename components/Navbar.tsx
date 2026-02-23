@@ -1,12 +1,7 @@
 "use client";
 
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
-import { Space_Grotesk } from "next/font/google";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { spaceGrotesk } from "@/lib/fonts";
 
 // Duración exacta del gif: 50 frames × 20ms + frame 49 a 40ms + frame 50 a 60ms = 1060ms
 const GIF_DURATION = 1060;

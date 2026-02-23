@@ -1,12 +1,7 @@
 "use client";
 
-import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import { spaceGrotesk } from "@/lib/fonts";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
