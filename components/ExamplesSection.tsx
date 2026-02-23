@@ -43,7 +43,7 @@ const examples: Example[] = [
   {
     batteryType: "BATERÍA CITYQUAD",
     batteryColor: "#6b7280",
-    batteryImage: "/def/citycarbat.webp",
+    batteryImage: "/def/citycarbat2.webp",
     title: "Cityquad / Citycar",
     imageUrl: "/def/cityquad.webp",
     description: "Soluciones versátiles para vehículos urbanos eléctricos",

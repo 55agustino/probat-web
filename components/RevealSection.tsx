@@ -90,7 +90,7 @@ export default function RevealSection() {
         <div
           className="w-full h-full bg-cover bg-center relative will-change-[clip-path]"
           style={{
-            backgroundImage: "url(/def/revealsection.webp)",
+            backgroundImage: "url(/def/fondorevealsection.webp)",
             clipPath: `inset(${100 - reveal}% 0 0 0)`,
           }}
         >
