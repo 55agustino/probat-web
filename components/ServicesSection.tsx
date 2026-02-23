@@ -22,12 +22,12 @@ export default function ServicesSection() {
     {
       title: "SEGUNDA VIDA",
       description: "Revalorización de celdas que han llegado al final de su vida útil, convirtiendolas en nueva materia prima pronta para su comercialización y reutilización.",
-      image: "/def/segundavida.jpeg"
+      image: "/def/segundavida.webp"
     },
     {
       title: "FABRICACIÓN",
       description: "Con las celdas recertificadas se fabrican baterías para bicicletas, motos y citycars; así como baterias para sistemas de acumuladores solares/eólicos.",
-      image: "/def/fabricacion.jpeg"
+      image: "/def/fabricacion.webp"
     }
   ];
 

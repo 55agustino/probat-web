@@ -32,13 +32,16 @@ probat-web/
 └── public/
     ├── logow.webp            # Logo estático
     ├── gifff.gif             # Logo animado (intro)
-    ├── CLASIFICACION.webp    # Imagen servicio clasificación
     ├── RECERTIFICACION.webp  # Imagen servicio recertificación
-    ├── SEGUNDAVIDA.webp      # Imagen servicio segunda vida
-    ├── FABRICACION.webp      # Imagen servicio fabricación
-    ├── camioneta.webp        # Imagen vehículo
     ├── makingof1.webp        # Imagen proceso
-    └── def/                  # Imágenes de la sección Ejemplos
+    └── def/                  # Imágenes de la sección Ejemplos y RevealSection
+        ├── revealsection.webp    # Imagen de fondo RevealSection
+        ├── fabricacion.webp      # Imagen servicio fabricación
+        ├── segundavida.webp      # Imagen servicio segunda vida
+        ├── bici.webp / bicibat.webp
+        ├── citycarbat.webp / cityquad.webp
+        ├── kayak.webp / kayakbat.webp
+        └── paneles.webp / panelsolarbat.webp / animacion2.webp
 ```
 
 ## Secciones
