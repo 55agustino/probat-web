@@ -224,7 +224,7 @@ export default function ExamplesSection() {
           <h2 className={`${spaceGrotesk.className} text-3xl md:text-4xl lg:text-5xl font-bold mb-4`}>
             Ejemplos de <span className="text-blue-400">Fabricación</span>
           </h2>
-          <p className={`${spaceGrotesk.className} text-gray-400 text-lg whitespace-nowrap`}>
+          <p className={`${spaceGrotesk.className} text-gray-400 text-lg`}>
             Nuestras baterías en acción: soluciones energéticas para diferentes aplicaciones
           </p>
         </div>
