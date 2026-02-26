@@ -18,7 +18,7 @@ const services = [
   "Fabricación a Medida",
 ];
 
-const whatsappNumber = "+59893768645";
+const whatsappNumber = "+59894049511";
 const whatsappMessage = encodeURIComponent("¡Hola! Me gustaría obtener más información.");
 
 export default function Footer() {
