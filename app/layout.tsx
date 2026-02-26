@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "KoC2h2OWOheqxfvqHOnP0XuR2xHqRMN2N79gANauxsc",
+  },
   openGraph: {
     title: "PROBAT | Especialistas en Baterías de Litio",
     description:
