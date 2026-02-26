@@ -21,7 +21,7 @@ export default function ServicesSection() {
     },
     {
       title: "FABRICACIÓN",
-      description: "Con las celdas recertificadas se fabrican baterías para bicicletas, motos y citycars; así como baterias para sistemas de acumuladores solares/eólicos.",
+      description: "Con celdas Li-ion NCM y Lifepo4 LFP se fabrican baterías para bicicletas, motos y citycars; así como baterias para sistemas de acumuladores solares/eólicos.",
       image: "/def/fabricacion.webp"
     }
   ];
