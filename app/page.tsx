@@ -18,10 +18,6 @@ const ContactSection = dynamic(() => import("@/components/ContactSection"), {
   loading: () => <div className="min-h-screen bg-black" />,
 });
 
-const WhatsAppButton = dynamic(() => import("@/components/WhatsAppButton"), {
-  ssr: false,
-});
-
 export default function Home() {
   return (
     <div>
@@ -34,7 +30,6 @@ export default function Home() {
       <ExamplesSection />
       <ContactSection />
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }
