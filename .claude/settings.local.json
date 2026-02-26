@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -File - <<'EOF'\nGet-ChildItem -Path 'c:\\\\Users\\\\senti\\\\Documents\\\\VSCode\\\\probat-web\\\\public' -Recurse -File | Sort-Object Length -Descending | Format-Table Name, @{Name='KB';Expression={[math]::Round\\($_.Length/1024,1\\)}} -AutoSize\nEOF)",
+      "Bash(powershell -File - <<'EOF'\nGet-ChildItem -Path 'c:\\\\Users\\\\senti\\\\Documents\\\\VSCode\\\\probat-web\\\\public\\\\videos' -Recurse -File -ErrorAction SilentlyContinue | Sort-Object Length -Descending | Format-Table Name, @{Name='MB';Expression={[math]::Round\\($_.Length/1MB,2\\)}} -AutoSize\nEOF)",
+      "Bash(node -e:*)",
+      "Bash(cwebp:*)",
+      "Bash(git config:*)",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)"
+    ]
+  }
+}
